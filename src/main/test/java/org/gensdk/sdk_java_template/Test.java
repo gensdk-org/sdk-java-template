@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class Test {
     public static void main(String[] args) {
-        // new ClientSet
         RESTClient restClient = new RESTClient();
         restClient.setProtocol("http");
         restClient.setAddr("127.0.0.1");
@@ -17,7 +16,9 @@ public class Test {
 
 
         // 调用 coreV1 服务的 credential 模块的 list 接口
-        ArrayList<Credential> listCredential = new ClientSet(restClient).coreV1().credential().list(new QueryParams());
+        QueryParams queryParams = new QueryParams();
+        queryParams.setStart(1);
+        ArrayList<Credential> listCredential = new ClientSet(restClient).coreV1().credential().list(queryParams);
         for (Credential credential : listCredential) {
             System.out.println(credential.toString());
         }
