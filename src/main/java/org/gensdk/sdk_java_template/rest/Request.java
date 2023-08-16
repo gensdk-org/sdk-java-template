@@ -1,6 +1,7 @@
 package org.gensdk.sdk_java_template.rest;
 
 import com.google.gson.Gson;
+import okhttp3.Headers;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.apache.commons.beanutils.BeanUtils;
@@ -65,8 +66,10 @@ public class Request {
     }
 
     public okhttp3.Request buildRequest() throws Exception {
-        okhttp3.Request.Builder reqBuilder = (new okhttp3.Request.Builder()).url(this.defaultUrl());
-        reqBuilder.method(this.verb, (RequestBody) this.body);
+        okhttp3.Request.Builder reqBuilder = (new okhttp3.Request.Builder())
+                .url(this.defaultUrl())
+                .method(this.verb, (RequestBody) this.body)
+                .headers(Headers.of(this.restClient.getHeaders()));
         return reqBuilder.build();
     }
 
