@@ -10,7 +10,7 @@ public class QueryParams {
     private String sort;
 
     public int getStart() {
-        return start;
+        return this.start;
     }
 
     public void setStart(int start) {
@@ -18,7 +18,7 @@ public class QueryParams {
     }
 
     public int getSize() {
-        return size;
+        return this.size;
     }
 
     public void setSize(int size) {
@@ -26,7 +26,7 @@ public class QueryParams {
     }
 
     public String getFilter() {
-        return filter;
+        return this.filter;
     }
 
     public void setFilter(String filter) {
@@ -34,7 +34,7 @@ public class QueryParams {
     }
 
     public String getSort() {
-        return sort;
+        return this.sort;
     }
 
     public void setSort(String sort) {

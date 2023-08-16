@@ -6,7 +6,7 @@ public class Request {
     private String params;
 
     public RESTClient getRestClient() {
-        return restClient;
+        return this.restClient;
     }
 
     public void setRestClient(RESTClient restClient) {
@@ -14,7 +14,7 @@ public class Request {
     }
 
     public String getVerb() {
-        return verb;
+        return this.verb;
     }
 
     public void setVerb(String verb) {
@@ -22,7 +22,7 @@ public class Request {
     }
 
     public String getParams() {
-        return params;
+        return this.params;
     }
 
     public void setParams(String params) {

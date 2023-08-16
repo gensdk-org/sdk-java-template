@@ -1,5 +1,6 @@
 package org.gensdk.sdk_java_template.models.coreV1;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 public class Machine {
@@ -10,7 +11,7 @@ public class Machine {
     private String name;
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -18,7 +19,7 @@ public class Machine {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -27,6 +28,6 @@ public class Machine {
 
     @Override
     public String toString() {
-        return "{" + this.getName() + ":" + this.getId() + "}";
+        return new Gson().toJson(this);
     }
 }

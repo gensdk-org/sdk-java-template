@@ -1,5 +1,6 @@
 package org.gensdk.sdk_java_template.models.coreV1;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 public class Credential {
@@ -27,6 +28,6 @@ public class Credential {
 
     @Override
     public String toString() {
-        return "{" + this.getName() + ":" + this.getId() + "}";
+        return new Gson().toJson(this);
     }
 }

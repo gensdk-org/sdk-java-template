@@ -16,7 +16,6 @@ public class MachineClient {
 
     public ArrayList<Machine> list(QueryParams queryParams) {
         System.out.println(this.getRestClient().getAddr());
-        // 创建一个空的 ArrayList
         ArrayList<Machine> machines = new ArrayList<>();
 
         Machine machine = new Machine();
