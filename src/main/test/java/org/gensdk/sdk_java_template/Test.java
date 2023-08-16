@@ -23,7 +23,7 @@ public class Test {
             System.out.println(credential.toString());
         }
 
-        // 调用 coreV1 服务的 credential 模块的 list 接口
+        // 调用 coreV1 服务的 machine 模块的 list 接口
         ArrayList<Machine> listMachine = new ClientSet(restClient).coreV1().machine().list(new QueryParams());
         for (Machine machine : listMachine) {
             System.out.println(machine.toString());
