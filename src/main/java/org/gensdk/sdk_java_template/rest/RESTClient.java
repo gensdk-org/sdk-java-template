@@ -1,9 +1,7 @@
 package org.gensdk.sdk_java_template.rest;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
-import java.util.List;
 import java.util.Map;
 
 public class RESTClient {
@@ -17,32 +15,36 @@ public class RESTClient {
         return protocol;
     }
 
-    public void setProtocol(String protocol) {
+    public RESTClient setProtocol(String protocol) {
         this.protocol = protocol;
+        return this;
     }
 
     public String getAddr() {
         return addr;
     }
 
-    public void setAddr(String addr) {
+    public RESTClient setAddr(String addr) {
         this.addr = addr;
+        return this;
     }
 
     public String getPort() {
         return port;
     }
 
-    public void setPort(String port) {
+    public RESTClient setPort(String port) {
         this.port = port;
+        return this;
     }
 
     public Map<String, String> getHeaders() {
         return headers;
     }
 
-    public void setHeaders(Map<String, String> headers) {
+    public RESTClient setHeaders(Map<String, String> headers) {
         this.headers = headers;
+        return this;
     }
 
     public OkHttpClient getHttpClient() {

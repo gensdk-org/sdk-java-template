@@ -6,11 +6,10 @@ import org.gensdk.sdk_java_template.rest.RESTClient;
 
 public class Test {
     public static void main(String[] args) throws Exception {
-        RESTClient restClient = new RESTClient();
-        restClient.setProtocol("http");
-        restClient.setAddr("127.0.0.1");
-        restClient.setPort("8080");
-        restClient.defaultHttpClient();
+        RESTClient restClient = new RESTClient().
+                setProtocol("http").
+                setAddr("127.0.0.1").
+                setPort("8080");
 
         ClientSet clientSet = new ClientSet(restClient);
 

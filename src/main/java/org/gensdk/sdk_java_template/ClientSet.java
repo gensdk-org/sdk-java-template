@@ -7,6 +7,9 @@ public class ClientSet {
     private final CoreV1Client coreV1Client;
 
     public ClientSet(RESTClient restClient) {
+        if (restClient.getHttpClient() == null) {
+            restClient.defaultHttpClient();
+        }
         this.coreV1Client = CoreV1Client.NewForConfig(restClient);
     }
 
