@@ -1,36 +1,24 @@
 package org.gensdk.sdk_java_template.typed.coreV1;
 
-import org.gensdk.sdk_java_template.models.coreV1.Credential;
 import org.gensdk.sdk_java_template.models.coreV1.Machine;
-import org.gensdk.sdk_java_template.models.coreV1.QueryParams;
 import org.gensdk.sdk_java_template.rest.RESTClient;
-
-import java.util.ArrayList;
+import org.gensdk.sdk_java_template.rest.Request;
 
 public class MachineClient {
-    private final RESTClient restClient;
+    private final Request request;
 
     public MachineClient(RESTClient restClient) {
-        this.restClient = restClient;
+        this.request = new Request();
+        this.request.setRestClient(restClient);
     }
 
-    public ArrayList<Machine> list(QueryParams queryParams) {
-        System.out.println(this.getRestClient().getAddr());
-        ArrayList<Machine> machines = new ArrayList<>();
-
+    public Machine detail() throws Exception {
         Machine machine = new Machine();
-        machine.setName("jaronnie");
-        machine.setId(1);
-
-        machines.add(machine);
-        return machines;
-    }
-
-    public Credential detail() {
-        return new Credential();
-    }
-
-    public RESTClient getRestClient() {
-        return restClient;
+        this.request.
+                setVerb("GET").
+                setSubPath("/hello/say").
+                buildCall().
+                into(machine);
+        return machine;
     }
 }

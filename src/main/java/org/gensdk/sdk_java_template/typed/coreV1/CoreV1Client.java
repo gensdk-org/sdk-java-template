@@ -9,15 +9,15 @@ public class CoreV1Client {
         this.restClient = restClient;
     }
 
+    public static CoreV1Client NewForConfig(RESTClient restClient) {
+        return new CoreV1Client(restClient);
+    }
+
     public CredentialClient credential() {
         return new CredentialClient(this.restClient);
     }
 
     public MachineClient machine() {
         return new MachineClient(this.restClient);
-    }
-
-    public static CoreV1Client NewForConfig(RESTClient restClient) {
-        return new CoreV1Client(restClient);
     }
 }

@@ -1,7 +1,9 @@
 package org.gensdk.sdk_java_template.rest;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
+import java.util.List;
 import java.util.Map;
 
 public class RESTClient {
@@ -49,5 +51,10 @@ public class RESTClient {
 
     public void setHttpClient(OkHttpClient httpClient) {
         this.httpClient = httpClient;
+    }
+
+    public void defaultHttpClient() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        this.setHttpClient(builder.build());
     }
 }
