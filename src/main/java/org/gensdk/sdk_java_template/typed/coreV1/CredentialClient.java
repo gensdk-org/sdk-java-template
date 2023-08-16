@@ -12,12 +12,12 @@ public class CredentialClient {
         this.request.setRestClient(restClient);
     }
 
-    public Credential detail() throws Exception {
+    public Credential detail(int id) throws Exception {
         Credential credential = new Credential();
         this.request.
                 setVerb("GET").
-                setSubPath("/hello/say").
-                buildCall().
+                setSubPath("/api/v1.0/credential/1").
+                call().
                 into(credential);
         return credential;
     }

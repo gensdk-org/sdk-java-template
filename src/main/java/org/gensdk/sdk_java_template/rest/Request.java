@@ -68,7 +68,7 @@ public class Request {
         return reqBuilder.build();
     }
 
-    public Request buildCall() throws Exception {
+    public Request call() throws Exception {
         okhttp3.Request request = this.buildRequest();
         Response res =  this.restClient.getHttpClient().newCall(request).execute();
         assert res.body() != null;

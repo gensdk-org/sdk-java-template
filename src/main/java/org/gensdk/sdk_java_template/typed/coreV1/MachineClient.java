@@ -16,8 +16,8 @@ public class MachineClient {
         Machine machine = new Machine();
         this.request.
                 setVerb("GET").
-                setSubPath("/hello/say").
-                buildCall().
+                setSubPath("/api/v1.0/machine/1").
+                call().
                 into(machine);
         return machine;
     }

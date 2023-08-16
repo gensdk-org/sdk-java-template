@@ -12,13 +12,14 @@ public class Test {
         restClient.setPort("8080");
         restClient.defaultHttpClient();
 
+        ClientSet clientSet = new ClientSet(restClient);
 
         // 调用 coreV1 服务的 credential 模块的 detail 接口
-        Credential credentialDetail = new ClientSet(restClient).coreV1().credential().detail();
-        System.out.println(credentialDetail);
+        Credential credentialDetail = clientSet.coreV1().credential().detail(1);
+        System.out.println(credentialDetail.getName());
 
         // 调用 coreV1 服务的 machine 模块的 detail 接口
-        Machine machineDetail = new ClientSet(restClient).coreV1().machine().detail();
-        System.out.println(machineDetail);
+        Machine machineDetail = clientSet.coreV1().machine().detail();
+        System.out.println(machineDetail.getName());
     }
 }
