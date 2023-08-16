@@ -7,11 +7,21 @@ import okhttp3.Response;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 public class Request {
     private RESTClient restClient;
     private String verb;
     private String params;
+
+    public Object getBody() {
+        return body;
+    }
+
+    public Request setBody(Object body) {
+        this.body = body;
+        return this;
+    }
 
     private String subPath;
 
@@ -66,9 +76,16 @@ public class Request {
     }
 
     public okhttp3.Request buildRequest() throws Exception {
+        Gson gson = new Gson();
+        String jsonBody = gson.toJson(this.body);
+        RequestBody requestBody = RequestBody.create(jsonBody.getBytes());
+        if(Objects.equals(this.verb, "GET")) {
+            requestBody = null;
+        }
+
         okhttp3.Request.Builder reqBuilder = (new okhttp3.Request.Builder())
                 .url(this.defaultUrl())
-                .method(this.verb, (RequestBody) this.body)
+                .method(this.verb, requestBody)
                 .headers(Headers.of(this.restClient.getHeaders()));
         return reqBuilder.build();
     }
@@ -83,6 +100,10 @@ public class Request {
     }
 
     public void into(Object object) throws InvocationTargetException, IllegalAccessException {
+        if(object == null) {
+            return;
+        }
+
         Gson gson = new Gson();
         Result result = gson.fromJson((String) this.body, Result.class);
         if(result.getCode() != 200) {

@@ -4,6 +4,19 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 public class Credential {
+
+    public static class CreateCredentialReq {
+        private String name;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
     @SerializedName("id")
     private int id;
 

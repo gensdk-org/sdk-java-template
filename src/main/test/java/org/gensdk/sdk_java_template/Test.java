@@ -13,6 +13,10 @@ public class Test {
 
         ClientSet clientSet = new ClientSet(restClient);
 
+        Credential.CreateCredentialReq createCredentialReq =  new Credential.CreateCredentialReq();
+        createCredentialReq.setName("jaronnie2");
+        clientSet.coreV1().credential().create(createCredentialReq);
+
         // 调用 coreV1 服务的 credential 模块的 detail 接口
         Credential credentialDetail = clientSet.coreV1().credential().detail(1);
         System.out.println(credentialDetail.getName());
