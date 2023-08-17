@@ -12,11 +12,11 @@ public class CredentialClient {
         this.request.setRestClient(restClient);
     }
 
-    public void create(Credential.CreateCredentialReq createCredentialReq) throws Exception {
+    public void create(Credential createCredential) throws Exception {
         this.request.
                 setVerb("POST").
-                setSubPath("/api/v1.0/credential/create").
-                setBody(createCredentialReq).
+                buildSubPath("/api/v1.0/credential/create").
+                setBody(createCredential).
                 call().
                 into(null);
     }
@@ -25,7 +25,7 @@ public class CredentialClient {
         Credential credential = new Credential();
         this.request.
                 setVerb("GET").
-                setSubPath("/api/v1.0/credential/1").
+                buildSubPath("/api/v1.0/credential/1").
                 setBody(null).
                 call().
                 into(credential);

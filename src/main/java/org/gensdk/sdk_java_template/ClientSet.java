@@ -4,6 +4,7 @@ import org.gensdk.sdk_java_template.rest.RESTClient;
 import org.gensdk.sdk_java_template.typed.coreV1.CoreV1Client;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class ClientSet {
     private final CoreV1Client coreV1Client;
@@ -11,6 +12,13 @@ public class ClientSet {
     public ClientSet(RESTClient restClient) {
         if (restClient.getHttpClient() == null) {
             restClient.defaultHttpClient();
+        }
+
+        if(Objects.equals(restClient.getProtocol(), null)) {
+            restClient.setProtocol("http");
+        }
+        if(Objects.equals(restClient.getPort(), null)) {
+            restClient.setPort("80");
         }
 
         if (restClient.getHeaders() == null) {

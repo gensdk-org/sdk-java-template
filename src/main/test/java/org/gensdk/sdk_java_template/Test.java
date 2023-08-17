@@ -4,18 +4,24 @@ import org.gensdk.sdk_java_template.models.coreV1.Credential;
 import org.gensdk.sdk_java_template.models.coreV1.Machine;
 import org.gensdk.sdk_java_template.rest.RESTClient;
 
+import java.util.HashMap;
+
 public class Test {
     public static void main(String[] args) throws Exception {
-        RESTClient restClient = new RESTClient().
-                setProtocol("http").
-                setAddr("127.0.0.1").
-                setPort("8080");
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Token", "your_token");
+        RESTClient restClient = RESTClient.builder().
+                addr("127.0.0.1").
+                port("8080").
+                headers(headers).build();
 
         ClientSet clientSet = new ClientSet(restClient);
 
-        Credential.CreateCredentialReq createCredentialReq =  new Credential.CreateCredentialReq();
-        createCredentialReq.setName("jaronnie2");
-        clientSet.coreV1().credential().create(createCredentialReq);
+        Credential createCredential =  new Credential();
+        createCredential.setName("jaronnie2");
+
+        // 调用 coreV1 服务的 credential 模块的 create 接口
+        clientSet.coreV1().credential().create(createCredential);
 
         // 调用 coreV1 服务的 credential 模块的 detail 接口
         Credential credentialDetail = clientSet.coreV1().credential().detail(1);

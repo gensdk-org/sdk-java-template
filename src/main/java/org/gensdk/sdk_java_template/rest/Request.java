@@ -1,6 +1,8 @@
 package org.gensdk.sdk_java_template.rest;
 
 import com.google.gson.Gson;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Headers;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -9,13 +11,16 @@ import org.apache.commons.beanutils.BeanUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
+@Getter
 public class Request {
     private RESTClient restClient;
     private String verb;
     private String params;
+    private String subPath;
+    private Object body;
 
-    public Object getBody() {
-        return body;
+    public void setRestClient(RESTClient restClient) {
+        this.restClient = restClient;
     }
 
     public Request setBody(Object body) {
@@ -23,41 +28,17 @@ public class Request {
         return this;
     }
 
-    private String subPath;
-
-    private Object body;
-
-    public RESTClient getRestClient() {
-        return this.restClient;
-    }
-
-    public void setRestClient(RESTClient restClient) {
-        this.restClient = restClient;
-    }
-
-    public String getVerb() {
-        return this.verb;
-    }
-
     public Request setVerb(String verb) {
         this.verb = verb;
         return this;
     }
 
-    public String getParams() {
-        return this.params;
-    }
-
-    public Request setParams(String params) {
+    public Request buildParams(String params) {
         this.params = params;
         return this;
     }
 
-    public String getSubPath() {
-        return this.subPath;
-    }
-
-    public Request setSubPath(String subPath) {
+    public Request buildSubPath(String subPath) {
         this.subPath = subPath;
         return this;
     }
