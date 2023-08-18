@@ -4,6 +4,8 @@ import org.gensdk.sdk_java_template.models.coreV1.Credential;
 import org.gensdk.sdk_java_template.rest.RESTClient;
 import org.gensdk.sdk_java_template.rest.Request;
 
+import java.util.ArrayList;
+
 public class CredentialClient {
     private final Request request;
 
@@ -21,11 +23,13 @@ public class CredentialClient {
                 into(null);
     }
 
-    public Credential detail(int id) throws Exception {
-        Credential credential = new Credential();
+    public Credential detail(Credential credential) throws Exception {
+        ArrayList<Request.PathParam> pathParams = new ArrayList<>();
+        pathParams.add(Request.PathParam.builder().name("id").value(credential.getId()).build());
+
         this.request.
                 setVerb("GET").
-                buildSubPath("/api/v1.0/credential/1").
+                buildSubPath("/api/v1.0/credential/{id}", pathParams).
                 setBody(null).
                 call().
                 into(credential);

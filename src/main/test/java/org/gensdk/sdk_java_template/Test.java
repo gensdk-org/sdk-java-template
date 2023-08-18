@@ -17,14 +17,11 @@ public class Test {
 
         ClientSet clientSet = new ClientSet(restClient);
 
-        Credential createCredential =  new Credential();
-        createCredential.setName("jaronnie2");
-
         // 调用 coreV1 服务的 credential 模块的 create 接口
-        clientSet.coreV1().credential().create(createCredential);
+        clientSet.coreV1().credential().create(Credential.builder().name("jaronnie2").build());
 
         // 调用 coreV1 服务的 credential 模块的 detail 接口
-        Credential credentialDetail = clientSet.coreV1().credential().detail(1);
+        Credential credentialDetail = clientSet.coreV1().credential().detail(Credential.builder().id(1).build());
         System.out.println(credentialDetail.getName());
 
         // 调用 coreV1 服务的 machine 模块的 detail 接口

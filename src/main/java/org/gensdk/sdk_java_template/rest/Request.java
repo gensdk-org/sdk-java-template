@@ -1,14 +1,16 @@
 package org.gensdk.sdk_java_template.rest;
 
 import com.google.gson.Gson;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 import okhttp3.Headers;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Getter
@@ -41,6 +43,19 @@ public class Request {
     public Request buildSubPath(String subPath) {
         this.subPath = subPath;
         return this;
+    }
+    public Request buildSubPath(String subPath, ArrayList<PathParam> pathParams) {
+        for (PathParam pathParam : pathParams) {
+            this.subPath = subPath.replaceAll("\\{"+pathParam.getName()+"}", String.valueOf(pathParam.getValue()));
+        }
+        return this;
+    }
+
+    @Data
+    @Builder
+    public static final class PathParam {
+        private String name;
+        private Object value;
     }
 
     public String defaultUrl() throws Exception {
