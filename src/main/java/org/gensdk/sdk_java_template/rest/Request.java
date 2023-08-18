@@ -95,7 +95,7 @@ public class Request {
         return this;
     }
 
-    public void into(Object object) throws InvocationTargetException, IllegalAccessException {
+    public void into(Object object) throws Exception {
         if(object == null) {
             return;
         }
@@ -103,14 +103,11 @@ public class Request {
         Gson gson = new Gson();
         Result result = gson.fromJson((String) this.body, Result.class);
         if(result.getCode() != 200) {
-            System.out.println("code 非 200");
-            return;
+            throw new Exception(this.body.toString()+", "+ "message is: " + result.getMessage());
         }
         Object data = gson.fromJson(gson.toJson(result.getData()), object.getClass());
         if (object.getClass().isInstance(data)) {
             BeanUtils.copyProperties(object, data);
-        } else {
-            System.out.println("数据类型不匹配");
         }
     }
 }
