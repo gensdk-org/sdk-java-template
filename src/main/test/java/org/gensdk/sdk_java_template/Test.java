@@ -14,7 +14,7 @@ public class Test {
         ClientSet clientSet = new ClientSet(restClient);
 
         // 调用 coreV1 服务的 credential 模块的 create 接口
-         clientSet.coreV1().credential().create(Credential.builder().name("gocloudcoder2").type("colocation").build());
+        clientSet.coreV1().credential().create(Credential.builder().name("gocloudcoder2").type("colocation").build());
 
         Credential credential = new Credential();
         clientSet.directClient()
