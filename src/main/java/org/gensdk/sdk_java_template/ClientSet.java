@@ -1,12 +1,14 @@
 package org.gensdk.sdk_java_template;
 
 import org.gensdk.sdk_java_template.rest.RESTClient;
+import org.gensdk.sdk_java_template.typed.DirectClient;
 import org.gensdk.sdk_java_template.typed.coreV1.CoreV1Client;
 
 import java.util.HashMap;
 import java.util.Objects;
 
 public class ClientSet {
+    private final DirectClient directClient;
     private final CoreV1Client coreV1Client;
 
     public ClientSet(RESTClient restClient) {
@@ -28,9 +30,13 @@ public class ClientSet {
             restClient.setHeaders(hashMap);
         }
         this.coreV1Client = CoreV1Client.NewForConfig(restClient);
+        this.directClient = DirectClient.NewForConfig(restClient);
     }
 
     public CoreV1Client coreV1() {
         return coreV1Client;
+    }
+    public DirectClient directClient() {
+        return directClient;
     }
 }
