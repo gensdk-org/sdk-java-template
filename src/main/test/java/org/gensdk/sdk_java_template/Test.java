@@ -18,7 +18,6 @@ public class Test {
 
         Credential credential = new Credential();
         clientSet.directClient()
-                .restClient()
                 .setVerb("GET")
                 .buildSubPath("/api/v1.0/credential/1")
                 .call()

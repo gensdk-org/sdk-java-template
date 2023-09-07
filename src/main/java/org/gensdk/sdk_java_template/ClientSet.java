@@ -1,6 +1,7 @@
 package org.gensdk.sdk_java_template;
 
 import org.gensdk.sdk_java_template.rest.RESTClient;
+import org.gensdk.sdk_java_template.rest.Request;
 import org.gensdk.sdk_java_template.typed.DirectClient;
 import org.gensdk.sdk_java_template.typed.coreV1.CoreV1Client;
 
@@ -36,7 +37,10 @@ public class ClientSet {
     public CoreV1Client coreV1() {
         return coreV1Client;
     }
-    public DirectClient directClient() {
-        return directClient;
+
+    public Request directClient() {
+        Request request = new Request();
+        request.setRestClient(this.directClient.restClient().getRestClient());
+        return request;
     }
 }
