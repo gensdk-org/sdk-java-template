@@ -7,8 +7,8 @@ import lombok.Getter;
 import okhttp3.Headers;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import org.apache.commons.beanutils.BeanUtils;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -43,9 +43,10 @@ public class Request {
         this.subPath = subPath;
         return this;
     }
+
     public Request buildSubPath(String subPath, ArrayList<PathParam> pathParams) {
         for (PathParam pathParam : pathParams) {
-            this.subPath = subPath.replaceAll("\\{"+pathParam.getName()+"}", String.valueOf(pathParam.getValue()));
+            this.subPath = subPath.replaceAll("\\{" + pathParam.getName() + "}", String.valueOf(pathParam.getValue()));
         }
         return this;
     }
@@ -57,24 +58,23 @@ public class Request {
         private Object value;
     }
 
-    public String defaultUrl() throws Exception {
-       if("".equals(this.restClient.getProtocol()) || "".equals(this.restClient.getAddr()) || "".equals(this.restClient.getPort())) {
-           throw new Exception("invalid url, please check your protocol and addr and port");
+    private String defaultUrl() throws Exception {
+        if ("".equals(this.restClient.getProtocol()) || "".equals(this.restClient.getAddr()) || "".equals(this.restClient.getPort())) {
+            throw new Exception("invalid url, please check your protocol and addr and port");
         }
 
-        return this.restClient.getProtocol() +
-                "://" +
-                this.restClient.getAddr() +
-                ":" +
-                this.restClient.getPort() +
-                this.getSubPath();
+        return this.getParams() != null
+                ?
+                this.restClient.getProtocol() + "://" + this.restClient.getAddr() + ":" + this.restClient.getPort() + this.getSubPath() + this.getParams()
+                :
+                this.restClient.getProtocol() + "://" + this.restClient.getAddr() + ":" + this.restClient.getPort() + this.getSubPath();
     }
 
     public okhttp3.Request buildRequest() throws Exception {
         Gson gson = new Gson();
         String jsonBody = gson.toJson(this.body);
         RequestBody requestBody = RequestBody.create(jsonBody.getBytes());
-        if(Objects.equals(this.verb, "GET")) {
+        if (Objects.equals(this.verb, "GET")) {
             requestBody = null;
         }
 
@@ -87,26 +87,25 @@ public class Request {
 
     public Request call() throws Exception {
         okhttp3.Request request = this.buildRequest();
-        Response res =  this.restClient.getHttpClient().newCall(request).execute();
+        Response res = this.restClient.getHttpClient().newCall(request).execute();
         assert res.body() != null;
         this.body = res.body().string();
         res.close();
         return this;
     }
 
-    public void into(Object object) throws Exception {
-        if(object == null) {
-            return;
-        }
+    public Object RawResponse() {
+        return this.body;
+    }
 
+    public <T> T into(Type type) throws Exception {
         Gson gson = new Gson();
         Result result = gson.fromJson((String) this.body, Result.class);
-        if(result.getCode() != 200) {
-            throw new Exception(this.body.toString()+", "+ "message is: " + result.getMessage());
+        if (result.getCode() != 200) {
+            throw new Exception(result.getMsg());
         }
-        Object data = gson.fromJson(gson.toJson(result.getData()), object.getClass());
-        if (object.getClass().isInstance(data)) {
-            BeanUtils.copyProperties(object, data);
-        }
+        Object data = result.getData();
+        String jsonString = gson.toJson(data);
+        return gson.fromJson(jsonString, type);
     }
 }

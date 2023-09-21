@@ -1,8 +1,12 @@
 package org.gensdk.sdk_java_template.typed.coreV1;
 
+import com.google.gson.reflect.TypeToken;
+import org.gensdk.sdk_java_template.models.coreV1.Credential;
 import org.gensdk.sdk_java_template.models.coreV1.Machine;
 import org.gensdk.sdk_java_template.rest.RESTClient;
 import org.gensdk.sdk_java_template.rest.Request;
+
+import java.util.ArrayList;
 
 public class MachineClient {
     private final Request request;
@@ -12,13 +16,13 @@ public class MachineClient {
         this.request.setRestClient(restClient);
     }
 
-    public Machine detail() throws Exception {
-        Machine machine = new Machine();
-        this.request.
+    public Machine detail(Integer id) throws Exception {
+        ArrayList<Request.PathParam> pathParams = new ArrayList<>();
+        pathParams.add(Request.PathParam.builder().name("id").value(id).build());
+        return this.request.
                 setVerb("GET").
-                buildSubPath("/api/v1.0/machine/1").
+                buildSubPath("/api/v1.0/machine/{id}", pathParams).
                 call().
-                into(machine);
-        return machine;
+                into(new TypeToken<Machine>() {}.getType());
     }
 }

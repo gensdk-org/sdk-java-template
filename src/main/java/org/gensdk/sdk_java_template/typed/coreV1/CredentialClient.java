@@ -1,5 +1,6 @@
 package org.gensdk.sdk_java_template.typed.coreV1;
 
+import com.google.gson.reflect.TypeToken;
 import org.gensdk.sdk_java_template.models.coreV1.Credential;
 import org.gensdk.sdk_java_template.rest.RESTClient;
 import org.gensdk.sdk_java_template.rest.Request;
@@ -23,16 +24,15 @@ public class CredentialClient {
                 into(null);
     }
 
-    public Credential detail(Credential credential) throws Exception {
+    public Credential detail(Integer id) throws Exception {
         ArrayList<Request.PathParam> pathParams = new ArrayList<>();
-        pathParams.add(Request.PathParam.builder().name("id").value(credential.getId()).build());
+        pathParams.add(Request.PathParam.builder().name("id").value(id).build());
 
-        this.request.
+        return this.request.
                 setVerb("GET").
                 buildSubPath("/api/v1.0/credential/{id}", pathParams).
                 setBody(null).
                 call().
-                into(credential);
-        return credential;
+                into(new TypeToken<Credential>() {}.getType());
     }
 }
