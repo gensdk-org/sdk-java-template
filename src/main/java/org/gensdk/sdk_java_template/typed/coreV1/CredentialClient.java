@@ -15,13 +15,13 @@ public class CredentialClient {
         this.request.setRestClient(restClient);
     }
 
-    public void create(Credential createCredential) throws Exception {
-        this.request.
+    public Boolean create(Credential createCredential) throws Exception {
+        return this.request.
                 setVerb("POST").
                 buildSubPath("/api/v1.0/credential/create").
                 setBody(createCredential).
                 call().
-                into(null);
+                into(new TypeToken<Boolean>() {}.getType());
     }
 
     public Credential detail(Integer id) throws Exception {

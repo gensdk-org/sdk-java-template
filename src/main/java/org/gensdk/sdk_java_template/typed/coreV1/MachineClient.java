@@ -1,7 +1,6 @@
 package org.gensdk.sdk_java_template.typed.coreV1;
 
 import com.google.gson.reflect.TypeToken;
-import org.gensdk.sdk_java_template.models.coreV1.Credential;
 import org.gensdk.sdk_java_template.models.coreV1.Machine;
 import org.gensdk.sdk_java_template.rest.RESTClient;
 import org.gensdk.sdk_java_template.rest.Request;

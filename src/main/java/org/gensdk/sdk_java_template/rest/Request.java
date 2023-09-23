@@ -39,12 +39,19 @@ public class Request {
         return this;
     }
 
+    public Request buildParams(String params, ArrayList<QueryParam> queryParams) {
+        // TODO: support queryParams
+        this.params = params;
+        return this;
+    }
+
     public Request buildSubPath(String subPath) {
         this.subPath = subPath;
         return this;
     }
 
     public Request buildSubPath(String subPath, ArrayList<PathParam> pathParams) {
+        // TODO: support array pathParam
         for (PathParam pathParam : pathParams) {
             this.subPath = subPath.replaceAll("\\{" + pathParam.getName() + "}", String.valueOf(pathParam.getValue()));
         }
@@ -54,6 +61,13 @@ public class Request {
     @Data
     @Builder
     public static final class PathParam {
+        private String name;
+        private Object value;
+    }
+
+    @Data
+    @Builder
+    public static final class QueryParam {
         private String name;
         private Object value;
     }
